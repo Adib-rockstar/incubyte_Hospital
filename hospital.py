@@ -33,14 +33,40 @@ def hospital_data_menu():
     opt=int(input("\t\t|Enter your choice :- "));
     if (opt == 1):
         time.sleep(1);
-        insert_data();
+        insert_data_menu();
     elif (opt ==2):
         time.sleep(1);
-        view_data();
+        view_data_menu();
     else:
         print("Invalid option please try again");
         time.sleep(1);
-        hospital_data_menu()
+        hospital_data_menu();
+
+def view_data_menu():
+    print("\t\t===============================================");
+    print("\t\t|How you like to view data please select.    |\n");
+    print("\t\t|1.To view by customer ID.                   |\n");
+    print("\t\t|2.To view by country                        |\n");
+    opt=int(input("\t\t|Enter your choice :- "));
+        if (opt == 1):
+            time.sleep(1);
+            view_customerID();
+        elif (opt ==2):
+            time.sleep(1);
+            view_country();
+        else:
+            print("Invalid option please try again");
+            time.sleep(1);
+            view_data_menu();
+
+def view_customerID():
+    print("\t\t===============================================");
+    custID=input("\t\t|Please enter Customer ID :- ");
+
+
+def view_country():
+    print("\t\t===============================================");
+    custID=input("\t\t|Please enter Country name :- ");
 
 
 home_page();
