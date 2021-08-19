@@ -48,20 +48,20 @@ def view_data_menu():
     print("\t\t|1.To view by customer ID.                   |\n");
     print("\t\t|2.To view by country                        |\n");
     opt=int(input("\t\t|Enter your choice :- "));
-        if (opt == 1):
-            time.sleep(1);
-            view_customerID();
-        elif (opt ==2):
-            time.sleep(1);
-            view_country();
-        else:
-            print("Invalid option please try again");
-            time.sleep(1);
-            view_data_menu();
+    if (opt == 1):
+        time.sleep(1);
+        view_customerID();
+    elif (opt ==2):
+        time.sleep(1);
+        view_country();
+    else:
+        print("Invalid option please try again");
+        time.sleep(1);
+        view_data_menu();
 
 def view_customerID():
     print("\t\t===============================================");
-    custID=input("\t\t|Please enter Customer ID :- ");
+    custID=input("\t\t|Please enter customer ID :- ");
 
 
 def view_country():
