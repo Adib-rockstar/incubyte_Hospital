@@ -69,21 +69,30 @@ def insert_data_menu():
     newid.append(id[0])
     newid.append(conv)
     custid = ''.join(map(str, newid))
-    print("\t\t|Enter the details of the customer:")
-    cust_name=input("\t\t|Customer Name : ")
-    open_date=input("\t\t|Customer Open Date (YYYY-MM-DD) : ")
-    last_date=input("\t\t|Customer Last Last_Consulted_Date (YYYY-MM-DD) : ")
-    vacci=input("\t\t|Customer Vaccination Type : ")
-    doctor=input("\t\t|Doctor Consulted : ")
-    state=input("\t\t|Customer State : ")
-    country=input("\t\t|Customer Country : ")
-    post=input("\t\t|Customer Postcode : ")
-    dob=input("\t\t|Customer Date of Birth (YYYY-MM-DD) : ")
-    active=input("\t\t|Active (A/N) : ")
-
-
-
-
+    try:
+        print("\t\t===============================================");
+        print("\t\t|Enter the details of the customer            |")
+        cust_name=input("\t\t|Customer Name : ")
+        open_date=input("\t\t|Customer Open Date (YYYY-MM-DD) : ")
+        last_date=input("\t\t|Customer Last Last_Consulted_Date (YYYY-MM-DD) : ")
+        vacci=input("\t\t|Customer Vaccination Type : ")
+        doctor=input("\t\t|Doctor Consulted : ")
+        state=input("\t\t|Customer State : ")
+        contri=input("\t\t|Customer Country : ")
+        country=contri.lower();
+        post=input("\t\t|Customer Postcode : ")
+        dob=input("\t\t|Customer Date of Birth (YYYY-MM-DD) : ")
+        active=input("\t\t|Active (A/N) : ")
+        val=(cust_name,custid,open_date,last_date,vacci,doctor,state,country,post,dob,active)
+        cursor.execute("INSERT INTO {} VALUES (?,?,?,?,?,?,?,?,?,?,?)".format(country),val)
+        print("\n\t\t|DATA INSERTED");
+        table_name = "master_hospital"
+        vals=(custid,country)
+        cursor.execute("INSERT INTO {} VALUES (?,?)".format(table_name),vals)
+        cursor.commit();
+    except:
+        print("You have entered some wrong values")
+        hospital_data_menu()
 
 def view_data_menu():
     print("\t\t===============================================");
@@ -113,6 +122,7 @@ def view_customerID():
     cursor=conn.cursor()
     print("\t\t===============================================");
     custID=input("\t\t|Please enter customer ID :- ");
+    custID=custID.upper()
     table_name = "master_hospital"
     query = "SELECT * FROM {}".format(table_name)
     cursor.execute(query)
