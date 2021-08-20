@@ -1,5 +1,6 @@
 import time
 import os
+import pyodbc
 def home_page():
     flag=0;
     print("\t\t========================================");
@@ -60,8 +61,16 @@ def view_data_menu():
         view_data_menu();
 
 def view_customerID():
-    print("\t\t===============================================");
-    custID=input("\t\t|Please enter customer ID :- ");
+    driver = '{Microsoft Access Driver (*.mdb, *.accdb)}'
+    filepath = r'C:\Users\Adib\Desktop\New folder\incubyte_Hospital\hospital1.accdb'
+    myDataSource = pyodbc.dataSources()
+    access_driver = myDataSource['MS Access Database']
+    conn=pyodbc.connect(driver= driver, dbq=filepath, autocommit=True )
+    cursor=conn.cursor()
+    table_list = list(cursor.tables())
+    print(table_list)
+    #print("\t\t===============================================");
+    #custID=input("\t\t|Please enter customer ID :- ");
 
 
 def view_country():
