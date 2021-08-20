@@ -1,6 +1,7 @@
 import time
 import os
 import pyodbc
+import site
 def home_page():
     os.system('CLS');
     flag=0;
@@ -44,6 +45,11 @@ def hospital_data_menu():
         time.sleep(1);
         hospital_data_menu();
 
+def insert_data_menu():
+    print("\t\t|Enter the details of the customer:")
+    
+
+
 def view_data_menu():
     print("\t\t===============================================");
     print("\t\t|How you like to view data please select.    |\n");
@@ -64,6 +70,7 @@ def view_data_menu():
 def view_customerID():
     i=1;
     j=1;
+    opt=1
     custidcheck="x";
     driver = '{Microsoft Access Driver (*.mdb, *.accdb)}' #which database we are using
     filepath = r'C:\Users\Adib\Desktop\New folder\incubyte_Hospital\hospital1.accdb'    #location of the database
@@ -76,39 +83,69 @@ def view_customerID():
     cursor.execute(query)
     while (i==1):
         if (i==1):
-            onerow=cursor.fetchone();
-            custidcheck=onerow.Customer_ID;
-            print(custidcheck)
+            try:
+                onerow=cursor.fetchone();
+                custidcheck=onerow.Customer_ID
+            except:
+                print("Record not found");
+                i==2
             if (custidcheck==custID):
                 countrycheck=onerow.Country;
-                query2="Select * from {}".format(country);
-                cusror.execute(query2)
+                query2="Select * from {}".format(countrycheck);
+                cursor.execute(query2)
                 while (j==1):
                     inneronerow=cursor.fetchone();
                     custidcheck=inneronerow.Customer_ID;
                     if (custidcheck==custID):
-                        print("\t\tDetails of the customer         |\n");
-                        print("Customer Name : ",inneronerow.Customer_Name)
-                        print("Customer ID : ",inneronerow.Customer_ID)
-                        print("Customer Open Date : ",inneronerow.Customer_Open_Date)
-                        print("Customer Last Last_Consulted_Date : ",inneronerow.Last_Consulted_Date)
-                        print("Customer Vaccination Type : ",inneronerow.Vaccination_Type)
-                        print("Doctor Consulted : ",inneronerow.Doctor_Consulted)
-                        print("Customer State : ",inneronerow.State)
-                        print("Customer Country : ",inneronerow.Country)
-                        print("Customer Postcode : ",inneronerow.Postcode)
-                        print("Customer Date of Birth : ",inneronerow.DOB)
-                        print("Active : ",inneronerow.Active_Customer)
-                        j==2
-                        i==2
-            else:
-                print("Record not found");
-                i=2;
-
+                        print("\t\t========================================");
+                        print("\t\t|Details of the customer               |");
+                        print("\t\t|Customer Name : ",inneronerow.Customer_Name)
+                        print("\t\t|Customer ID : ",inneronerow.Customer_ID)
+                        print("\t\t|Customer Open Date : ",inneronerow.Customer_Open_Date)
+                        print("\t\t|Customer Last Last_Consulted_Date : ",inneronerow.Last_Consulted_Date)
+                        print("\t\t|Customer Vaccination Type : ",inneronerow.Vaccination_Type)
+                        print("\t\t|Doctor Consulted : ",inneronerow.Doctor_Consulted)
+                        print("\t\t|Customer State : ",inneronerow.State)
+                        print("\t\t|Customer Country : ",inneronerow.Country)
+                        print("\t\t|Customer Postcode : ",inneronerow.Postcode)
+                        print("\t\t|Customer Date of Birth : ",inneronerow.DOB)
+                        print("\t\t|Active : ",inneronerow.Active_Customer)
+                        opt=2;
+                        exit();
+    if (opt == 1):
+        print("Record Not Found")
 
 def view_country():
+    i=1;
     print("\t\t===============================================");
-    custID=input("\t\t|Please enter Country name :- ");
-
+    driver = '{Microsoft Access Driver (*.mdb, *.accdb)}' #which database we are using
+    filepath = r'C:\Users\Adib\Desktop\New folder\incubyte_Hospital\hospital1.accdb'    #location of the database
+    conn=pyodbc.connect(driver= driver, dbq=filepath, autocommit=True ) #eastablished the connection
+    cursor=conn.cursor()
+    try:
+        table_name=input("\t\t|Write the Country name(First letter should be capital) :- ");
+        query = "SELECT * FROM {}".format(table_name)
+        cursor.execute(query);
+    except:
+        print("Sorry we do not have branch in that country");
+        exit();
+    try:
+        while(i==1):
+            inneronerow=cursor.fetchone();
+            print("\t\t========================================");
+            print("\t\t|Details of the customer               |");
+            print("\t\t|Customer Name : ",inneronerow.Customer_Name)
+            print("\t\t|Customer ID : ",inneronerow.Customer_ID)
+            print("\t\t|Customer Open Date : ",inneronerow.Customer_Open_Date)
+            print("\t\t|Customer Last Last_Consulted_Date : ",inneronerow.Last_Consulted_Date)
+            print("\t\t|Customer Vaccination Type : ",inneronerow.Vaccination_Type)
+            print("\t\t|Doctor Consulted : ",inneronerow.Doctor_Consulted)
+            print("\t\t|Customer State : ",inneronerow.State)
+            print("\t\t|Customer Country : ",inneronerow.Country)
+            print("\t\t|Customer Postcode : ",inneronerow.Postcode)
+            print("\t\t|Customer Date of Birth : ",inneronerow.DOB)
+            print("\t\t|Active : ",inneronerow.Active_Customer)
+    except:
+        i==2
 
 home_page();
