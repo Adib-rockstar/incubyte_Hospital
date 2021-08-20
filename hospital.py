@@ -46,8 +46,43 @@ def hospital_data_menu():
         hospital_data_menu();
 
 def insert_data_menu():
+    i=1
+    id=[]
+    newid=[];
+    custid=" "
+    driver = '{Microsoft Access Driver (*.mdb, *.accdb)}' #which database we are using
+    filepath = r'C:\Users\Adib\Desktop\New folder\incubyte_Hospital\hospital1.accdb'    #location of the database
+    conn=pyodbc.connect(driver= driver, dbq=filepath, autocommit=True ) #eastablished the connection
+    cursor=conn.cursor()
+    table_name = "master_hospital"
+    query = "SELECT * FROM {}".format(table_name)
+    cursor.execute(query)
+    while (i==1):
+        if (i==1):
+            try:
+                onerow=cursor.fetchone();
+                id=onerow.Customer_ID;
+            except:
+                i=2
+    conv=int(id[1])
+    conv=conv+1
+    newid.append(id[0])
+    newid.append(conv)
+    custid = ''.join(map(str, newid))
     print("\t\t|Enter the details of the customer:")
-    
+    cust_name=input("\t\t|Customer Name : ")
+    open_date=input("\t\t|Customer Open Date (YYYY-MM-DD) : ")
+    last_date=input("\t\t|Customer Last Last_Consulted_Date (YYYY-MM-DD) : ")
+    vacci=input("\t\t|Customer Vaccination Type : ")
+    doctor=input("\t\t|Doctor Consulted : ")
+    state=input("\t\t|Customer State : ")
+    country=input("\t\t|Customer Country : ")
+    post=input("\t\t|Customer Postcode : ")
+    dob=input("\t\t|Customer Date of Birth (YYYY-MM-DD) : ")
+    active=input("\t\t|Active (A/N) : ")
+
+
+
 
 
 def view_data_menu():
@@ -78,7 +113,7 @@ def view_customerID():
     cursor=conn.cursor()
     print("\t\t===============================================");
     custID=input("\t\t|Please enter customer ID :- ");
-    table_name = "Master_hospital"
+    table_name = "master_hospital"
     query = "SELECT * FROM {}".format(table_name)
     cursor.execute(query)
     while (i==1):
@@ -123,7 +158,8 @@ def view_country():
     conn=pyodbc.connect(driver= driver, dbq=filepath, autocommit=True ) #eastablished the connection
     cursor=conn.cursor()
     try:
-        table_name=input("\t\t|Write the Country name(First letter should be capital) :- ");
+        table_name=input("\t\t|Write the Country name :- ");
+        table_name=table_name.lower();
         query = "SELECT * FROM {}".format(table_name)
         cursor.execute(query);
     except:
