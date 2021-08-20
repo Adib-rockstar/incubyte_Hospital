@@ -2,6 +2,7 @@ import time
 import os
 import pyodbc
 def home_page():
+    os.system('CLS');
     flag=0;
     print("\t\t========================================");
     print("\t\t| Welcome to Hospital Database          |");
@@ -61,16 +62,26 @@ def view_data_menu():
         view_data_menu();
 
 def view_customerID():
-    driver = '{Microsoft Access Driver (*.mdb, *.accdb)}'
-    filepath = r'C:\Users\Adib\Desktop\New folder\incubyte_Hospital\hospital1.accdb'
-    myDataSource = pyodbc.dataSources()
-    access_driver = myDataSource['MS Access Database']
-    conn=pyodbc.connect(driver= driver, dbq=filepath, autocommit=True )
+    i=1;
+    data="x";
+    driver = '{Microsoft Access Driver (*.mdb, *.accdb)}' #which database we are using
+    filepath = r'C:\Users\Adib\Desktop\New folder\incubyte_Hospital\hospital1.accdb'    #location of the database
+    conn=pyodbc.connect(driver= driver, dbq=filepath, autocommit=True ) #eastablished the connection
     cursor=conn.cursor()
-    table_list = list(cursor.tables())
-    print(table_list)
-    #print("\t\t===============================================");
-    #custID=input("\t\t|Please enter customer ID :- ");
+    print("\t\t===============================================");
+    custID=input("\t\t|Please enter customer ID :- ");
+    table_name = "Master_hospital"
+    query = "SELECT * FROM {}".format(table_name)
+    cursor.execute(query)
+    while (i=1):
+        if (i==1):
+            onerow=cursor.fetchone();
+            data=onerow.Customer_ID;
+            if (data==custID):
+                print (data);
+                i=2;
+            else:
+                print("Record not found");
 
 
 def view_country():
