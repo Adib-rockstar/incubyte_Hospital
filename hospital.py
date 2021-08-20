@@ -162,6 +162,8 @@ def view_customerID():
 
 def view_country():
     i=1;
+    count=0
+    choose=0
     print("\t\t===============================================");
     driver = '{Microsoft Access Driver (*.mdb, *.accdb)}' #which database we are using
     filepath = r'C:\Users\Adib\Desktop\New folder\incubyte_Hospital\hospital1.accdb'    #location of the database
@@ -175,23 +177,51 @@ def view_country():
     except:
         print("Sorry we do not have branch in that country");
         exit();
-    try:
-        while(i==1):
-            inneronerow=cursor.fetchone();
-            print("\t\t========================================");
-            print("\t\t|Details of the customer               |");
-            print("\t\t|Customer Name : ",inneronerow.Customer_Name)
-            print("\t\t|Customer ID : ",inneronerow.Customer_ID)
-            print("\t\t|Customer Open Date : ",inneronerow.Customer_Open_Date)
-            print("\t\t|Customer Last Last_Consulted_Date : ",inneronerow.Last_Consulted_Date)
-            print("\t\t|Customer Vaccination Type : ",inneronerow.Vaccination_Type)
-            print("\t\t|Doctor Consulted : ",inneronerow.Doctor_Consulted)
-            print("\t\t|Customer State : ",inneronerow.State)
-            print("\t\t|Customer Country : ",inneronerow.Country)
-            print("\t\t|Customer Postcode : ",inneronerow.Postcode)
-            print("\t\t|Customer Date of Birth : ",inneronerow.DOB)
-            print("\t\t|Active : ",inneronerow.Active_Customer)
-    except:
-        i==2
+    print("\t\t===============================================");
+    print("\t\tPlease Select The Foramt:                     |");
+    print("\t\t|1.PIPE DELIMETER");
+    print("\t\t|2.BOX FORMAT");
+    choose=int(input("\t\t|Please Enter : "))
+    if (choose == 1):
+        try:
+            while(i==1):
+                os.system('CLS');
+                print("========================================");
+                print("Details of the customer               |");
+                print("|H|Customer_Records|")
+                for row in cursor.fetchall():
+                    print("|D|",end="")
+                    for i in row:
+                        print(i,"|",end="")
+                    print()
+                    count=count+1
+                print("|T|",count,"|")
+                print("=========================================")
+
+        except:
+            i==2
+
+
+    elif(choose == 2):
+        try:
+            while(i==1):
+                inneronerow=cursor.fetchone();
+                print("\t\t========================================");
+                print("\t\t|Details of the customer               |");
+                print("\t\t|Customer Name : ",inneronerow.Customer_Name)
+                print("\t\t|Customer ID : ",inneronerow.Customer_ID)
+                print("\t\t|Customer Open Date : ",inneronerow.Customer_Open_Date)
+                print("\t\t|Customer Last Last_Consulted_Date : ",inneronerow.Last_Consulted_Date)
+                print("\t\t|Customer Vaccination Type : ",inneronerow.Vaccination_Type)
+                print("\t\t|Doctor Consulted : ",inneronerow.Doctor_Consulted)
+                print("\t\t|Customer State : ",inneronerow.State)
+                print("\t\t|Customer Country : ",inneronerow.Country)
+                print("\t\t|Customer Postcode : ",inneronerow.Postcode)
+                print("\t\t|Customer Date of Birth : ",inneronerow.DOB)
+                print("\t\t|Active : ",inneronerow.Active_Customer)
+        except:
+            i==2
+    else:
+        print("Wrong Input");
 
 home_page();
