@@ -63,7 +63,8 @@ def view_data_menu():
 
 def view_customerID():
     i=1;
-    data="x";
+    j=1;
+    custidcheck="x";
     driver = '{Microsoft Access Driver (*.mdb, *.accdb)}' #which database we are using
     filepath = r'C:\Users\Adib\Desktop\New folder\incubyte_Hospital\hospital1.accdb'    #location of the database
     conn=pyodbc.connect(driver= driver, dbq=filepath, autocommit=True ) #eastablished the connection
@@ -73,15 +74,36 @@ def view_customerID():
     table_name = "Master_hospital"
     query = "SELECT * FROM {}".format(table_name)
     cursor.execute(query)
-    while (i=1):
+    while (i==1):
         if (i==1):
             onerow=cursor.fetchone();
-            data=onerow.Customer_ID;
-            if (data==custID):
-                print (data);
-                i=2;
+            custidcheck=onerow.Customer_ID;
+            print(custidcheck)
+            if (custidcheck==custID):
+                countrycheck=onerow.Country;
+                query2="Select * from {}".format(country);
+                cusror.execute(query2)
+                while (j==1):
+                    inneronerow=cursor.fetchone();
+                    custidcheck=inneronerow.Customer_ID;
+                    if (custidcheck==custID):
+                        print("\t\tDetails of the customer         |\n");
+                        print("Customer Name : ",inneronerow.Customer_Name)
+                        print("Customer ID : ",inneronerow.Customer_ID)
+                        print("Customer Open Date : ",inneronerow.Customer_Open_Date)
+                        print("Customer Last Last_Consulted_Date : ",inneronerow.Last_Consulted_Date)
+                        print("Customer Vaccination Type : ",inneronerow.Vaccination_Type)
+                        print("Doctor Consulted : ",inneronerow.Doctor_Consulted)
+                        print("Customer State : ",inneronerow.State)
+                        print("Customer Country : ",inneronerow.Country)
+                        print("Customer Postcode : ",inneronerow.Postcode)
+                        print("Customer Date of Birth : ",inneronerow.DOB)
+                        print("Active : ",inneronerow.Active_Customer)
+                        j==2
+                        i==2
             else:
                 print("Record not found");
+                i=2;
 
 
 def view_country():
