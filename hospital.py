@@ -48,7 +48,7 @@ def hospital_data_menu():
 def insert_data_menu():
     i=1
     id=[]
-    newid=[];
+    newid=["C"];
     custid=" "
     driver = '{Microsoft Access Driver (*.mdb, *.accdb)}' #which database we are using
     filepath = r'C:\Users\Adib\Desktop\New folder\incubyte_Hospital\hospital1.accdb'    #location of the database
@@ -64,35 +64,36 @@ def insert_data_menu():
                 id=onerow.Customer_ID;
             except:
                 i=2
-    conv=int(id[1])
-    conv=conv+1
-    newid.append(id[0])
-    newid.append(conv)
+    id=id[1:]
+    id=int(id)
+    id=id+1
+    newid.append(id)
     custid = ''.join(map(str, newid))
-    try:
-        print("\t\t===============================================");
-        print("\t\t|Enter the details of the customer            |")
-        cust_name=input("\t\t|Customer Name : ")
-        open_date=input("\t\t|Customer Open Date (YYYY-MM-DD) : ")
-        last_date=input("\t\t|Customer Last Last_Consulted_Date (YYYY-MM-DD) : ")
-        vacci=input("\t\t|Customer Vaccination Type : ")
-        doctor=input("\t\t|Doctor Consulted : ")
-        state=input("\t\t|Customer State : ")
-        contri=input("\t\t|Customer Country : ")
-        country=contri.lower();
-        post=input("\t\t|Customer Postcode : ")
-        dob=input("\t\t|Customer Date of Birth (YYYY-MM-DD) : ")
-        active=input("\t\t|Active (A/N) : ")
-        val=(cust_name,custid,open_date,last_date,vacci,doctor,state,country,post,dob,active)
-        cursor.execute("INSERT INTO {} VALUES (?,?,?,?,?,?,?,?,?,?,?)".format(country),val)
-        print("\n\t\t|DATA INSERTED");
-        table_name = "master_hospital"
-        vals=(custid,country)
-        cursor.execute("INSERT INTO {} VALUES (?,?)".format(table_name),vals)
-        cursor.commit();
-    except:
-        print("You have entered some wrong values")
-        hospital_data_menu()
+    print (custid)
+    #try:
+        #print("\t\t===============================================");
+        #print("\t\t|Enter the details of the customer            |")
+        #cust_name=input("\t\t|Customer Name : ")
+        #open_date=input("\t\t|Customer Open Date (YYYY-MM-DD) : ")
+        #last_date=input("\t\t|Customer Last Last_Consulted_Date (YYYY-MM-DD) : ")
+        #vacci=input("\t\t|Customer Vaccination Type : ")
+        #doctor=input("\t\t|Doctor Consulted : ")
+        #state=input("\t\t|Customer State : ")
+        #contri=input("\t\t|Customer Country : ")
+        #country=contri.lower();
+        #post=input("\t\t|Customer Postcode : ")
+        #dob=input("\t\t|Customer Date of Birth (YYYY-MM-DD) : ")
+        #active=input("\t\t|Active (A/N) : ")
+        #val=(cust_name,custid,open_date,last_date,vacci,doctor,state,country,post,dob,active)
+        #cursor.execute("INSERT INTO {} VALUES (?,?,?,?,?,?,?,?,?,?,?)".format(country),val)
+        #print("\n\t\t|DATA INSERTED");
+        #table_name = "master_hospital"
+        #vals=(custid,country)
+        #cursor.execute("INSERT INTO {} VALUES (?,?)".format(table_name),vals)
+        #cursor.commit();
+    #except:
+        #print("You have entered some wrong values")
+        #hospital_data_menu()
 
 def view_data_menu():
     print("\t\t===============================================");
