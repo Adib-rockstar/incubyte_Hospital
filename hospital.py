@@ -34,6 +34,7 @@ def hospital_data_menu():
     print("\t\t|1.To insert customer data                   |\n")
     print("\t\t|2.To view customer data                     |\n")
     print("\t\t|3.To edit customer data                     |\n")
+    print("\t\t|4.Exit                     |\n")
     opt=int(input("\t\t|Enter your choice :- "))
     if (opt == 1):
         time.sleep(1)
@@ -44,6 +45,11 @@ def hospital_data_menu():
     elif (opt ==3):
         time.sleep(1)
         edit_data_menu()
+    elif (opt ==4):
+        time.sleep(1)
+        print()
+        print("\t\t|SUCCESSFULLY EXITED")
+        exit()
     else:
         print("Invalid option please try again")
         time.sleep(1)
