@@ -33,6 +33,7 @@ def hospital_data_menu():
     print("\t\t|What you like to do please select an option |\n")
     print("\t\t|1.To insert customer data                   |\n")
     print("\t\t|2.To view customer data                     |\n")
+    print("\t\t|3.To edit customer data                     |\n")
     opt=int(input("\t\t|Enter your choice :- "))
     if (opt == 1):
         time.sleep(1)
@@ -91,6 +92,14 @@ def insert_data_menu():
         vals=(custid,country)
         cursor.execute("INSERT INTO {} VALUES (?,?)".format(table_name),vals)
         cursor.commit()
+        print("\t\t===============================================")
+        print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+        yes=int(input("\t\t|Please Enter : "))
+        if(yes == 1):
+            os.system('CLS')
+            hospital_data_menu()
+        else:
+            exit()
     except:
         print("You have entered some wrong values")
         hospital_data_menu()
@@ -203,12 +212,17 @@ def view_country():
                     print()
                     count=count+1
                 print("|T|",count,"|")
-                print("=========================================")
-
+                print("\t\t=========================================")
+                print("\t\t===============================================")
+                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                yes=int(input("\t\t|Please Enter : "))
+                if(yes == 1):
+                    os.system('CLS')
+                    hospital_data_menu()
+                else:
+                    exit()
         except:
             i==2
-
-
     elif(choose == 2):
         try:
             while(i==1):
@@ -226,6 +240,14 @@ def view_country():
                 print("\t\t|Customer Postcode : ",inneronerow.Postcode)
                 print("\t\t|Customer Date of Birth : ",inneronerow.DOB)
                 print("\t\t|Active : ",inneronerow.Active_Customer)
+                print("\t\t===============================================")
+                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                yes=int(input("\t\t|Please Enter : "))
+                if(yes == 1):
+                    os.system('CLS')
+                    hospital_data_menu()
+                else:
+                    exit()
         except:
             i==2
     else:
