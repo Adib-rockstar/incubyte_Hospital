@@ -73,7 +73,6 @@ def insert_data_menu():
     id=id+1
     newid.append(id)
     custid = ''.join(map(str, newid))
-    print (custid)
     try:
         print("\t\t===============================================")
         print("\t\t|Enter the details of the customer            |")
@@ -102,6 +101,8 @@ def insert_data_menu():
             os.system('CLS')
             hospital_data_menu()
         else:
+            time.sleep(1)
+            hospital_data_menu()
             exit()
     except:
         print("You have entered some wrong values")
@@ -441,5 +442,6 @@ def edit_data_menu():
                                     hospital_data_menu()
                                 else:
                                     exit()
+
 
 home_page()
