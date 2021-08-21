@@ -41,6 +41,9 @@ def hospital_data_menu():
     elif (opt ==2):
         time.sleep(1)
         view_data_menu()
+    elif (opt ==3):
+        time.sleep(1)
+        edit_data_menu()
     else:
         print("Invalid option please try again")
         time.sleep(1)
@@ -143,7 +146,7 @@ def view_customerID():
                 custidcheck=onerow.Customer_ID
             except:
                 print("Record not found")
-                i==2
+                i=2
             if (custidcheck==custID):
                 countrycheck=onerow.Country
                 query2="Select * from {}".format(countrycheck)
@@ -222,7 +225,7 @@ def view_country():
                 else:
                     exit()
         except:
-            i==2
+            i=2
     elif(choose == 2):
         try:
             while(i==1):
@@ -249,8 +252,194 @@ def view_country():
                 else:
                     exit()
         except:
-            i==2
+            i=2
     else:
         print("Wrong Input")
+
+def edit_data_menu():
+    yes=0
+    i=1
+    j=1
+    print("\t\t|===============================================")
+    print("\t\t|Please enter Customer ID, if you dont know the customer ID |")
+    print("\t\t|      please press 1, or press 2 if you already know the ID. |")
+    print("\t\t|To view the customer details please enter country name  |")
+    yes=int(input("\t\t|Please Enter : "))
+    if(yes == 1):
+        time.sleep(1)
+        os.system('CLS')
+        view_country()
+    else:
+        print("\t\t|===============================================")
+        custid=input("\t\t|Please Enter Customer ID :")
+        custid=custid.upper()
+        driver = '{Microsoft Access Driver (*.mdb, *.accdb)}' #which database we are using
+        filepath = r'C:\Users\Adib\Desktop\New folder\incubyte_Hospital\hospital1.accdb'    #location of the database
+        conn=pyodbc.connect(driver= driver, dbq=filepath, autocommit=True ) #eastablished the connection
+        cursor=conn.cursor()
+        table_name = "master_hospital"
+        query = "SELECT * FROM {}".format(table_name)
+        cursor.execute(query)
+        while (i==1):
+            if (i==1):
+                try:
+                    onerow=cursor.fetchone()
+                    custidcheck=onerow.Customer_ID
+                except:
+                    print("Record not found")
+                    i=2
+                if (custidcheck==custid):
+                    countrycheck=onerow.Country
+                    query2="Select * from {}".format(countrycheck)
+                    cursor.execute(query2)
+                    while (j==1):
+                        inneronerow=cursor.fetchone()
+                        custidcheck=inneronerow.Customer_ID
+                        if (custidcheck==custid):
+                            print("\t\t|There are several data, what do you like to change    |")
+                            print("\t\t|1.Customer Name \t\t 2.Customer Open Date  |")
+                            print("\t\t|3.Last Consulted Date \t\t 4.Vaccination\t       |")
+                            print("\t\t|5.Doctor Consulted \t\t 6.State\t       |")
+                            print("\t\t|7.Postcode \t\t\t 8.Date Of Birth       |")
+                            print("\t\t|9.Active        \t\t                       |")
+                            print()
+                            change=int(input("\t\t|Please enter what u would like to change (index no.) :- "))
+                            if (change == 1):
+                                os.system('CLS')
+                                newcustname=input("\t\t|Please enter new name: ")
+                                cursor.execute("UPDATE {} SET Customer_Name=? WHERE Customer_ID=?".format(countrycheck),newcustname,custidcheck)
+                                cursor.commit()
+                                print()
+                                print("\t\t|DATA UPDATED")
+                                print("\t\t===============================================")
+                                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                                yes=int(input("\t\t|Please Enter : "))
+                                if(yes == 1):
+                                    os.system('CLS')
+                                    hospital_data_menu()
+                                else:
+                                    exit()
+                            elif (change == 2):
+                                os.system('CLS')
+                                newopen=input("\t\t|Please enter new Customer Open Date (YYYY-MM-DD): ")
+                                cursor.execute("UPDATE {} SET Customer_Open_Date=? WHERE Customer_ID=?".format(countrycheck),newopen,custidcheck)
+                                cursor.commit()
+                                print("\t\t|DATA UPDATED")
+                                print("\t\t===============================================")
+                                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                                yes=int(input("\t\t|Please Enter : "))
+                                if(yes == 1):
+                                    os.system('CLS')
+                                    hospital_data_menu()
+                                else:
+                                    exit()
+                            elif (change == 3):
+                                os.system('CLS')
+                                newlast=input("\t\t|Please enter new Last Consulted Date (YYYY-MM-DD): ")
+                                cursor.execute("UPDATE {} SET Last_Consulted_Date=? WHERE Customer_ID=?".format(countrycheck),newlast,custidcheck)
+                                cursor.commit()
+                                print("\t\t|DATA UPDATED")
+                                print("\t\t===============================================")
+                                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                                yes=int(input("\t\t|Please Enter : "))
+                                if(yes == 1):
+                                    os.system('CLS')
+                                    hospital_data_menu()
+                                else:
+                                    exit()
+                            elif (change == 4):
+                                os.system('CLS')
+                                newvacc=input("\t\t|Please enter new Vaccination: ")
+                                cursor.execute("UPDATE {} SET Vaccination_Type=? WHERE Customer_ID=?".format(countrycheck),newvacc,custidcheck)
+                                cursor.commit()
+                                print("\t\t|DATA UPDATED")
+                                print("\t\t===============================================")
+                                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                                yes=int(input("\t\t|Please Enter : "))
+                                if(yes == 1):
+                                    os.system('CLS')
+                                    hospital_data_menu()
+                                else:
+                                    exit()
+                            elif (change == 5):
+                                os.system('CLS')
+                                newdr=input("\t\t|Please enter new Doctor Consulted: ")
+                                cursor.execute("UPDATE {} SET Doctor_Consulted=? WHERE Customer_ID=?".format(countrycheck),newdr,custidcheck)
+                                cursor.commit()
+                                print("\t\t|DATA UPDATED")
+                                print("\t\t===============================================")
+                                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                                yes=int(input("\t\t|Please Enter : "))
+                                if(yes == 1):
+                                    os.system('CLS')
+                                    hospital_data_menu()
+                                else:
+                                    exit()
+                            elif (change == 6):
+                                os.system('CLS')
+                                newstate=input("\t\t|Please enter new State: ")
+                                cursor.execute("UPDATE {} SET State=? WHERE Customer_ID=?".format(countrycheck),newstate,custidcheck)
+                                cursor.commit()
+                                print("\t\t|DATA UPDATED")
+                                print("\t\t===============================================")
+                                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                                yes=int(input("\t\t|Please Enter : "))
+                                if(yes == 1):
+                                    os.system('CLS')
+                                    hospital_data_menu()
+                                else:
+                                    exit()
+                            elif (change == 7):
+                                os.system('CLS')
+                                newpost=input("\t\t|Please enter new Postcode: ")
+                                cursor.execute("UPDATE {} SET Postcode=? WHERE Customer_ID=?".format(countrycheck),newpost,custidcheck)
+                                cursor.commit()
+                                print("\t\t|DATA UPDATED")
+                                print("\t\t===============================================")
+                                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                                yes=int(input("\t\t|Please Enter : "))
+                                if(yes == 1):
+                                    os.system('CLS')
+                                    hospital_data_menu()
+                                else:
+                                    exit()
+                            elif (change == 8):
+                                os.system('CLS')
+                                newdob=input("\t\t|Please enter new DOB (YYYY-MM-DD): ")
+                                cursor.execute("UPDATE {} SET DOB=? WHERE Customer_ID=?".format(countrycheck),newdob,custidcheck)
+                                cursor.commit()
+                                print("\t\t|DATA UPDATED")
+                                print("\t\t===============================================")
+                                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                                yes=int(input("\t\t|Please Enter : "))
+                                if(yes == 1):
+                                    os.system('CLS')
+                                    hospital_data_menu()
+                                else:
+                                    exit()
+                            elif (change == 9):
+                                os.system('CLS')
+                                newactive=input("\t\t|Please enter new Active: ")
+                                cursor.execute("UPDATE {} SET Active_Customer=? WHERE Customer_ID=?".format(countrycheck),newactive,custidcheck)
+                                cursor.commit()
+                                print("\t\t|DATA UPDATED")
+                                print("\t\t===============================================")
+                                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                                yes=int(input("\t\t|Please Enter : "))
+                                if(yes == 1):
+                                    os.system('CLS')
+                                    hospital_data_menu()
+                                else:
+                                    exit()
+                            else:
+                                print("\t\t|You have entered a wrong value")
+                                print("\t\t===============================================")
+                                print("\n\t\t|Do you like to do more activity if yes then press 1 ")
+                                yes=int(input("\t\t|Please Enter : "))
+                                if(yes == 1):
+                                    os.system('CLS')
+                                    hospital_data_menu()
+                                else:
+                                    exit()
 
 home_page()
