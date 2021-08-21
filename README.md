@@ -12,3 +12,4 @@ after successfull sign in ,there are serveral fucntions which can be manipulated
 you can use my program to,
 1)insert data
 2)to view data
+3)to edit data
