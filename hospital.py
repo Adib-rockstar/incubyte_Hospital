@@ -2,6 +2,15 @@ import time     #mainly used to create a effect of loading..
 import os       #used to clear the command prompt
 import pyodbc   #to establish connection between database and python
 import site     #use to exit the porgram
+#FUNCTIONS CREATED IN THE PROGRAM
+#HOME_PAGE
+#HOSPITAL_DATA_MENU
+#INSERT_DATA_MENU
+#VIEW_DATA_MENU
+#VIEW_CUSTOMERID
+#EDIT_DATA_MENU
+#VIEW_COUNTRY
+
 def home_page():
     os.system('CLS')
     flag=0
@@ -34,7 +43,7 @@ def hospital_data_menu():
     print("\t\t|1.To insert customer data                   |\n")
     print("\t\t|2.To view customer data                     |\n")
     print("\t\t|3.To edit customer data                     |\n")
-    print("\t\t|4.Exit                     |\n")
+    print("\t\t|4.Exit                                      |\n")
     opt=int(input("\t\t|Enter your choice :- "))
     if (opt == 1):
         time.sleep(1)
@@ -45,11 +54,11 @@ def hospital_data_menu():
     elif (opt ==3):
         time.sleep(1)
         edit_data_menu()
-    elif (opt ==4):
+    elif (opt == 4):
         time.sleep(1)
         print()
         print("\t\t|SUCCESSFULLY EXITED")
-        exit()
+        quit()
     else:
         print("Invalid option please try again")
         time.sleep(1)
@@ -310,7 +319,7 @@ def edit_data_menu():
                             print("\t\t|7.Postcode \t\t\t 8.Date Of Birth       |")
                             print("\t\t|9.Active        \t\t                       |")
                             print()
-                            change=int(input("\t\t|Please enter what u would like to change (index no.) :- "))
+                            change=int(input("\t\t|Please enter what you would like to change (index no.) :- "))
                             if (change == 1):
                                 os.system('CLS')
                                 newcustname=input("\t\t|Please enter new name: ")
@@ -448,6 +457,5 @@ def edit_data_menu():
                                     hospital_data_menu()
                                 else:
                                     exit()
-
 
 home_page()
